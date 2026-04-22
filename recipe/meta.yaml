@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/ocean_wave_tracing-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/ocean_wave_tracing-{{ version }}.tar.gz
   sha256: 54a06d09a0b57683686405ba15dbf51aed03a85ebd05a20321e2060bb1fae073
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python =>3.8
+    - python {{ python_min }}
     - pip
     - poetry
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - matplotlib-base >=3.5
     - numpy >=1.23
     - scipy >=1.9
@@ -35,6 +35,7 @@ test:
     - ocean_wave_tracing
   requires:
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
 
